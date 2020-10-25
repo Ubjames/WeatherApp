@@ -33,7 +33,7 @@ search.addEventListener("blur", () => {
   search.classList.remove("active-search");
 });
 
-onBackground();
+ onBackground();
 containerSwitch.classList.add("inactive");
 modeSwitch.classList.add("inactive");
 let thereIsBkgd;
@@ -53,7 +53,9 @@ bkgdImage.addEventListener("click", () => {
     containerSwitch.classList.add("inactive");
     modeSwitch.classList.add("inactive");
   }
-});
+}); 
+
+
 
 function onBackground() {
   body.style.background =
