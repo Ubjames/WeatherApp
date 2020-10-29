@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 body {
@@ -34,14 +34,13 @@ body {
   align-items: center;
   width: 100%;
   height: 50px;
-  background: #ff2c25;
+  background: #ff3a33e8;
   text-align: center;
   color: #fff;
   visibility: hidden;
 }
 
 #temperature {
-
   font-size: 7em;
   font-weight: 600;
 }
@@ -55,13 +54,11 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
-.group-1-1{
- display: flex;
- justify-content: center;
- width: 250px;
- 
+.group-1-1 {
+  display: flex;
+  justify-content: center;
+  width: 250px;
 }
 
 .group-1-2 {
@@ -71,11 +68,11 @@ body {
   align-items: center;
   flex-direction: column;
   height: 400px;
-  width: 250px; 
-  padding-bottom:20px;
-  padding-top:10px;
+  width: 250px;
+  padding-bottom: 20px;
+  padding-top: 10px;
 }
-.group-1-3{
+.group-1-3 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -84,7 +81,7 @@ body {
   height: 50px;
 }
 
-.group-1-2-3{
+.group-1-2-3 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,20 +93,19 @@ body {
   width: 750px;
   height: 400px;
   margin-top: 15px;
-  border-bottom:1px solid grey;
-  /* background: #05143d71; */
-  /* border: 1px solid green; */
+  border-bottom: 1px solid grey;
 }
-
-.group-2{
+.SmallC {
+  font-size: 0.6em;
+}
+.group-2 {
   display: flex;
   width: 500px;
   justify-content: space-evenly;
   margin-top: 10px;
-  
 }
-.group-2 > div{
-  display:flex;
+.group-2 > div {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -166,9 +162,9 @@ input,
 .bg-gp-3-2 {
   margin-top: 10px;
 }
-.switch {
+/* .switch {
   background: red;
-}
+} */
 .owm-P {
   margin-top: 15px;
   margin-bottom: 0px;
@@ -180,6 +176,9 @@ input,
   align-items: center;
   flex-direction: column;
   font-size: 9pt;
+}
+.owmlink > a {
+  color: rgb(158, 58, 1);
 }
 .social {
   margin-top: 10px;
@@ -203,10 +202,10 @@ input,
 .dev-group {
   display: flex;
 }
-/* .dev-gp-1 > p,
-.dev-gp-2 > p {
-  margin-left: 8px;
-} */
+.dev-gp-2 > .fa-angle-right {
+  position: absolute;
+  right: 10px;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -253,18 +252,19 @@ a {
 input[type="text"] {
   position: absolute;
   right: 60px;
+  top: 5px;
   width: 0;
-  height: 20px;
+  height: 35px;
   background: inherit;
   border: none;
-  /* border-bottom: 1px solid #fff; */
+  font-size: 1.5em;
   color: #fff;
   padding-left: 5px;
   transition: 0.3s ease-in-out;
   visibility: hidden;
 }
 input::placeholder {
-  text-decoration: wavy;
+  font-size: 1em;
   text-align: center;
 }
 input[type="text"]:focus {
@@ -273,4 +273,49 @@ input[type="text"]:focus {
 input[type="text"].active-search {
   visibility: visible;
   width: 200px;
+}
+
+.floatBtn {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  top: 495px;
+  left: 248px;
+  padding: 5px;
+  width: 100px;
+  z-index: -1;
+  transition: 0.3s ease-in-out;
+  transform: translateX(-100%);
+}
+
+.floatBtn > button {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding-left: 7px;
+}
+.floatBtn > #fb-share {
+  margin-bottom: 5px;
+}
+.floatBtn > #fb-share:hover {
+  background: rgb(33, 54, 246);
+  color: #fff;
+}
+.floatBtn > #tw-tweet:hover {
+  background: rgb(42, 115, 250);
+  color: #fff;
+}
+
+.floatBtn > #fb-share > a,
+.floatBtn > #tw-tweet > a {
+  font-size: 1em;
+  margin-left: 5px;
+}
+.share-on { 
+  /* display: flex; */
+  transform: translateX(-1%);
 }
