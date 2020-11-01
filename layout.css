@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -41,9 +43,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
+  /* height: 100vh; */
   font-size: 1em;
-  font-family: "century gothic";
+  font-family: "Muli", "century gothic";
   margin: 0;
   padding: 0;
 }
@@ -83,12 +85,12 @@ body {
   font-weight: 600;
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width: 500px) {
   #temperature {
-  display: flex;
-  font-size: 5em;
-  font-weight: 600;
-}
+    display: flex;
+    font-size: 5em;
+    font-weight: 600;
+  }
 }
 #temperature > #deg,
 #temperature > .SmallC {
@@ -96,7 +98,7 @@ body {
 }
 .fa-bars,
 .fa-search {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .weather-container {
@@ -212,13 +214,13 @@ body {
 #deg {
   font-size: 0.5em;
 }
-.temp-description{
-  margin-top:-50px
+.temp-description {
+  margin-top: -50px;
 }
 
-@media screen and (max-width:500px){
-  .temp-description{
-    margin-top:10px;
+@media screen and (max-width: 500px) {
+  .temp-description {
+    margin-top: 10px;
   }
 }
 .group-2 {
@@ -229,7 +231,7 @@ body {
   height: 130px;
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width: 500px) {
   .group-2 {
     display: flex;
     min-width: 70%;
@@ -239,30 +241,27 @@ body {
 
     flex-wrap: wrap;
   }
-
-  
 }
 .group-2 > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 10px;
-  height:50px;
+  height: 50px;
 }
 .group-2 > div:nth-child(even) {
-  border-right:1px solid grey;
-  border-left:1px solid grey;
-  height:50px;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+  height: 50px;
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width: 500px) {
   .group-2 > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 10px;
   }
-
 }
 nav {
   display: flex;
