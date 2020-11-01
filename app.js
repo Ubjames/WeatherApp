@@ -19,6 +19,7 @@ const currentLocation = document.querySelector(".location");
 const icon = document.querySelector("#icon");
 const shareOn = document.querySelector(".floatBtn");
 const share = document.querySelector(".dev-gp-2");
+
 let timeout;
 share.addEventListener("mouseover", (e) => {
   shareOn.classList.add("share-on");
@@ -51,10 +52,32 @@ exitMenu.addEventListener("click", () => {
 });
 
 searchIcon.addEventListener("click", () => {
-  search.classList.toggle("active-search");
+  let openSearch = search.classList.toggle("active-search");
+
+  let screenWidth = window.matchMedia("(max-width:500px)");
+  function hideName(screenWidth) {
+    if (screenWidth.matches && openSearch) {
+      document.querySelector("#name").style.visibility = "hidden";
+    } else {
+      document.querySelector("#name").style.visibility = "visible";
+    }
+  }
+  screenWidth.addListener(hideName);
+  hideName(screenWidth);
 });
 search.addEventListener("blur", () => {
-  search.classList.remove("active-search");
+  let closeSearch = search.classList.remove("active-search");
+
+  let screenWidth = window.matchMedia("(max-width:500px)");
+  function hideName(screenWidth) {
+    if (screenWidth.matches && closeSearch) {
+      document.querySelector("#name").style.visibility = "hidden";
+    } else {
+      document.querySelector("#name").style.visibility = "visible";
+    }
+  }
+  screenWidth.addListener(hideName);
+  hideName(screenWidth);
 });
 
 onBackground();
@@ -78,20 +101,6 @@ bkgdImage.addEventListener("click", () => {
     modeSwitch.classList.add("inactive");
   }
 });
-
-function onBackground() {
-  body.style.background =
-    'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
-  forecast.style.background = "inherit";
-  header.style.background = "#0f0b465e";
-  body.style.backgroundRepeat = "no-repeat";
-  body.style.backgroundSize = "cover";
-  body.style.color = "#fff";
-  menu.style.color = "#000";
-  search.style.borderBottom = "1px solid #fff";
-  search.style.color = "#fff";
-  shareOn.style.background = "#cccccc";
-}
 
 function dark() {
   body.style.background = "#000";
@@ -170,6 +179,9 @@ function getWeather(latitude, longitude) {
     })
     .then(() => {
       displayWeather();
+    })
+    .then(() => {
+      window.syncBackgrondWithWeatherConditon();
     });
 }
 
@@ -185,6 +197,7 @@ function configData(data) {
   weather.pressure = data.main.pressure;
   weather.feelsLike = Math.floor(data.main.feels_like - KELVIN);
   weather.seaLevel = data.main.sea_level;
+
   weather.humidity = data.main.humidity;
 }
 
@@ -193,25 +206,30 @@ function displayWeather() {
   setInterval(() => {
     if (fahUnit.checked) {
       let toFahrinheit = Math.floor((9 / 5) * weather.temperature.value + 35);
-      temperature.innerHTML = `${toFahrinheit}°<span class="SmallC">F</span>`;
+      temperature.innerHTML = `${toFahrinheit}<span id="deg">°</span><span class="SmallC">F</span>`;
     } else {
-      temperature.innerHTML = `${weather.temperature.value}°<span class="SmallC">C</span>`;
+      temperature.innerHTML = `${weather.temperature.value}<span id="deg">°</span><span class="SmallC">C</span>`;
     }
   }, 100);
 
-  icon.innerHTML = `<img src="SVGs/${weather.iconId}.svg" width="300"/>`;
-  console.log(weather.iconId);
+  icon.innerHTML = `<img src="SVGs/${weather.iconId}.svg" />`;
   tempDescription.innerHTML = weather.description;
   currentLocation.innerHTML = `${weather.city}, ${weather.country}`;
   maxTemp.innerHTML = `${tempMax}°<span>C</span>`;
   minTemp.innerHTML = `${tempMin}°<span>C</span>`;
   //
-  console.log(weather.humidity);
+
   document.querySelector("#wind").innerHTML = `${weather.wind} mph`;
   document.querySelector("#feels-like").innerHTML = ` ${weather.feelsLike}°`;
   document.querySelector("#pressure").innerHTML = `${weather.pressure}`;
   document.querySelector("#humidity").innerHTML = `${weather.humidity}%`;
-  document.querySelector("#sea-level").innerHTML = `${weather.seaLevel}`;
+  if (weather.seaLevel == undefined || weather.seaLevel == null) {
+    let seaLevel = document.querySelector("#seaLevel");
+    seaLevel.style.display = "none";
+  } else {
+    seaLevel.style.display = "flex";
+    document.querySelector("#sea-level").innerHTML = `${weather.seaLevel}`;
+  }
 }
 
 //search location
@@ -226,6 +244,62 @@ form.addEventListener("submit", (e) => {
     .then((data) => configData(data))
     .then(() => displayWeather());
 });
+
+function onBackground() {
+  window.syncBackgrondWithWeatherConditon = function () {
+    setInterval(() => {
+      if (
+        weather.description == "few clouds" ||
+        weather.description == "scattered clouds" ||
+        weather.description == "broken clouds" ||
+        weather.description == "overcast clouds"
+      ) {
+        body.style.background =
+          'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/cloudy.jpg")';
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundSize = "cover";
+      } else if (
+        weather.description == "shower rain" ||
+        weather.description == "rain" ||
+        weather.description == "light rain" ||
+        weather.description == "moderate rain"
+      ) {
+        body.style.background =
+          'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/rainny1.png")';
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundSize = "cover";
+      } else if (weather.description == "thunder storm") {
+        body.style.background =
+          'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/thunder storm.jpg")';
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundSize = "cover";
+      } else if (weather.description == "clear sky") {
+        body.style.background =
+          'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/clear sky1.jpg")';
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundSize = "cover";
+      } else {
+        body.style.background =
+          'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundSize = "cover";
+      }
+    }, 100);
+  };
+
+  body.style.background =
+    'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
+
+  forecast.style.background = "inherit";
+  header.style.background = "#0f0b465e";
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundSize = "cover";
+  body.style.color = "#fff";
+  menu.style.color = "#000";
+  search.style.borderBottom = "1px solid #fff";
+  search.style.color = "#fff";
+  shareOn.style.background = "#cccccc";
+}
 
 document.addEventListener("click", (e) => {
   let scrnWidth = e.clientX;
