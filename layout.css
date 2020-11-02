@@ -49,6 +49,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@media all and (max-width: 400px) {
+  body {
+    height: 110vh;
+  }
+}
 .header {
   display: flex;
   justify-content: space-between;
