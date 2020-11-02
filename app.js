@@ -234,15 +234,32 @@ function displayWeather() {
 
 //search location
 const form = document.querySelector("form");
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let inputVal = search.value;
-
+  let errors;
   const weatherProvider = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${weather_provider}`;
   fetch(weatherProvider)
-    .then((res) => res.json())
-    .then((data) => configData(data))
-    .then(() => displayWeather());
+    .then((res) => {
+      if (!res.ok) {
+        return (errors = `This City "${inputVal}" doesn't exist`);
+      }
+      alertBox.style.visibility = "hidden";
+      return res.json();
+    })
+    .then((data) => {
+      // errors = "";
+      configData(data);
+    })
+    .then(() => {
+      displayWeather();
+    })
+
+    .catch((err) => {
+      alertBox.style.visibility = "visible";
+      alertBox.innerHTML = `<p style="font-size:1em">${errors}</p>`;
+    });
 });
 
 function onBackground() {
@@ -291,7 +308,7 @@ function onBackground() {
     'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
 
   forecast.style.background = "inherit";
-  header.style.background = "#0f0b465e";
+  header.style.background = "#02001d6c";
   body.style.backgroundRepeat = "no-repeat";
   body.style.backgroundSize = "cover";
   body.style.color = "#fff";
