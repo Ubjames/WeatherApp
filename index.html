@@ -98,14 +98,14 @@
 
      <!-- floating element -->
      <div class="floatBtn">
-      <button id="fb-share">
+      <button id="fb-share" onclick="window.shareToFb()">
         <i class="fab fa-facebook"></i>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://127.0.0.1:5500/index.html" target="_blank">Share</a>
+        <p>Share</p>
       </button>
 
-      <button id="tw-tweet">
+      <button id="tw-tweet" onclick="window.tweetToTw()">
         <i class="fab fa-twitter"></i>
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank"> Tweet</a>
+        <p class="twitter-share-button" > Tweet</p>
       </button>
   </div>
 
@@ -125,26 +125,26 @@
 
     <div class="current-data-container" id="forecast">
       
-    
- <div class="group-1-2">
         
-        <div id="icon"></div>
-        <span class="temp-description">clear sky</span>
-        </div>
- <div class="group-1-1">
-   
-        <span id="temperature">-°c</span>
-      </div>
+        <div class="group-1-2">
+                
+                <div id="icon"></div>
+                <span class="temp-description">clear sky</span>
+          </div>
+          <div class="group-1-1">
+          
+            <span id="temperature">-°c</span>
+          </div>
 
-        
-        <div class="group-1-3">
-          <div>
-          Min  <span class="max-temp">12</span>
-          </div>
-          <div>
-          Max  <span class="min-temp">4</span>
-          </div>
-        </div>
+            
+            <div class="group-1-3">
+              <div>
+              Min  <span class="max-temp">12</span>
+              </div>
+              <div>
+              Max  <span class="min-temp">4</span>
+              </div>
+            </div>
   
     </div>
 

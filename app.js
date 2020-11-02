@@ -49,6 +49,11 @@ menuIcon.addEventListener("click", () => {
 
 exitMenu.addEventListener("click", () => {
   menu.classList.remove("active-nav");
+  if(share.classList.contains = "share-on"){
+    shareOn.style.display ='none';
+    shareOn.classList.remove('share-on');
+
+  }
 });
 
 searchIcon.addEventListener("click", () => {
@@ -322,5 +327,20 @@ document.addEventListener("click", (e) => {
   let scrnWidth = e.clientX;
   if (scrnWidth > 252 && menu.classList.contains("active-nav")) {
     menu.classList.remove("active-nav");
+    if(share.classList.contains = "share-on"){
+      shareOn.style.display ='none';
+      shareOn.classList.remove('share-on');
+  
+    }
   }
 });
+
+window.shareToFb = () => {
+  return window.open(
+    "https://www.facebook.com/sharer/sharer.php?u=https://ubtechweather.netlify.app/index.html",
+    "_blank"
+  );
+};
+window.tweetToTw = () => {
+  return window.open("https://twitter.com/intent/tweet", "_blank");
+};

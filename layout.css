@@ -43,7 +43,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* height: 110vh; */
+  height: 100vh;
   font-size: 1em;
   font-family: "Muli", "century gothic";
   margin: 0;
@@ -56,7 +56,7 @@ body {
   width: 100%;
   height: 70px;
   padding: 0 20px 0 20px;
-  background:#02001d6c
+  background: #02001d6c;
 }
 .header > span {
   font-size: 2em;
@@ -277,7 +277,7 @@ nav {
   width: 250px;
   height: 100vh;
   background: #cccccc;
-  padding: 10px 5px 30px 0;
+  padding: 10px 5px 50px 0;
   margin-top: -120px;
   transition: transform 0.4s ease-in-out;
   transform: translateX(-100%);
@@ -451,6 +451,11 @@ input[type="text"].active-search {
   transition: 0.3s ease-in-out;
   transform: translateX(-100%);
 }
+@media screen and (max-width: 370px) {
+  .floatBtn {
+    width: 45px;
+  }
+}
 
 .floatBtn > button {
   display: flex;
@@ -474,12 +479,25 @@ input[type="text"].active-search {
   color: #fff;
 }
 
-.floatBtn > #fb-share > a,
-.floatBtn > #tw-tweet > a {
+.floatBtn > #fb-share > p,
+.floatBtn > #tw-tweet > p {
   font-size: 1em;
   margin-left: 5px;
 }
+@media screen and (max-width: 370px) {
+  .floatBtn > #fb-share > p,
+  .floatBtn > #tw-tweet > p {
+    visibility: hidden;
+  }
+
+  button > i {
+    font-size: 1.5em;
+  }
+
+  button {
+    width: 35px;
+  }
+}
 .share-on {
-  /* display: flex; */
   transform: translateX(-1%);
 }
