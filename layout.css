@@ -45,7 +45,6 @@ body {
   background-attachment: fixed;
   height: 100vh;
   min-height: -webkit-fill-available; 
-  height: calc(var(--vh, 1vh) * 100);
   font-size: 1em;
   font-family: "Muli", "century gothic";
   margin: 0;

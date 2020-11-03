@@ -49,10 +49,9 @@ menuIcon.addEventListener("click", () => {
 
 exitMenu.addEventListener("click", () => {
   menu.classList.remove("active-nav");
-  if(share.classList.contains = "share-on"){
-    shareOn.style.display ='none';
-    shareOn.classList.remove('share-on');
-
+  if ((share.classList.contains = "share-on")) {
+    shareOn.style.display = "none";
+    shareOn.classList.remove("share-on");
   }
 });
 
@@ -327,10 +326,9 @@ document.addEventListener("click", (e) => {
   let scrnWidth = e.clientX;
   if (scrnWidth > 252 && menu.classList.contains("active-nav")) {
     menu.classList.remove("active-nav");
-    if(share.classList.contains = "share-on"){
-      shareOn.style.display ='none';
-      shareOn.classList.remove('share-on');
-  
+    if ((share.classList.contains = "share-on")) {
+      shareOn.style.display = "none";
+      shareOn.classList.remove("share-on");
     }
   }
 });
@@ -345,14 +343,7 @@ window.tweetToTw = () => {
   return window.open("https://twitter.com/intent/tweet", "_blank");
 };
 
-// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-let vh = window.innerHeight * 0.01;
-// Then we set the value in the --vh custom property to the root of the document
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-// We listen to the resize event
-window.addEventListener('resize', () => {
-  // We execute the same script as before
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-});
+let onreducedVh = window.innerHeight;
+let vhHeightbody = body.clientHeight;
+let x = vhHeightbody - onreducedVh;
+document.body.style.marginBottom = `${x}px`;
