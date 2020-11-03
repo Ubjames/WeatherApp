@@ -43,7 +43,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
+  /*height: 100vh;*/
+  min-height: -webkit-fill-available; 
   font-size: 1em;
   font-family: "Muli", "century gothic";
   margin: 0;
