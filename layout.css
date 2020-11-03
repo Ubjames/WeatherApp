@@ -310,6 +310,7 @@ hr {
   display: flex;
   justify-content: space-between;
 }
+
 .unit-1:hover,
 .unit-1-2:hover,
 .bg-gp-3-1:hover,
@@ -329,6 +330,16 @@ input,
 .bg-gp-3-2 {
   margin-top: 10px;
 }
+@media screen and (max-width:400px){
+  .bg-gp-3-2{
+    margin-top: -0px;
+  
+  }
+  nav h1{
+    
+    margin-top: 5px;
+  }
+}
 
 .owm-P {
   margin-top: 15px;
@@ -341,9 +352,11 @@ input,
   align-items: center;
   flex-direction: column;
   font-size: 9pt;
+ 
 }
 .owmlink > a {
   color: rgb(158, 58, 1);
+  margin-bottom:50px;
 }
 .social {
   margin-top: 10px;
@@ -446,10 +459,10 @@ input[type="text"].active-search {
 }
 
 .floatBtn {
-  position: absolute;
+  position: fixed;
   display: none;
   flex-direction: column;
-  top: 495px;
+  top: 450px;
   left: 248px;
   padding: 5px;
   width: 100px;
@@ -457,6 +470,10 @@ input[type="text"].active-search {
   transition: 0.3s ease-in-out;
   transform: translateX(-100%);
 }
+
+ .floatBtn:--ms-height {
+    top: 500px;
+  }
 @media screen and (max-width: 370px) {
   .floatBtn {
     width: 45px;
