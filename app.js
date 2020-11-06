@@ -188,6 +188,8 @@ function displayWeather() {
     seaLevel.style.display = "flex";
     document.querySelector("#sea-level").innerHTML = `${weather.seaLevel}`;
   }
+
+
   //background Settings [onBckground]
   (() => {
     let syncBackgrondWithWeatherConditon = setInterval(() => {
@@ -229,13 +231,8 @@ function displayWeather() {
         body.style.backgroundSize = "cover";
       }
 
-      // body.style.background =
-      //   'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
-
       forecast.style.background = "inherit";
       header.style.background = "#02001d6c";
-      // body.style.backgroundRepeat = "no-repeat";
-      // body.style.backgroundSize = "cover";
       body.style.color = "#fff";
       menu.style.color = "#000";
       search.style.borderBottom = "1px solid #fff";
@@ -280,6 +277,10 @@ function displayWeather() {
           modeSwitch.classList.contains("active-switch") ? dark() : light();
         });
       } else {
+        modeSwitch.removeEventListener("click", () => {
+            modeSwitch.classList.toggle("");
+            // modeSwitch.classList.contains("active-switch") ? dark() : light();
+          });
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
       }
