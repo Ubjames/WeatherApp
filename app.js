@@ -189,7 +189,6 @@ function displayWeather() {
     document.querySelector("#sea-level").innerHTML = `${weather.seaLevel}`;
   }
 
-
   //background Settings [onBckground]
   (() => {
     let syncBackgrondWithWeatherConditon = setInterval(() => {
@@ -278,9 +277,9 @@ function displayWeather() {
         });
       } else {
         modeSwitch.removeEventListener("click", () => {
-            modeSwitch.classList.toggle("");
-            // modeSwitch.classList.contains("active-switch") ? dark() : light();
-          });
+          modeSwitch.classList.toggle("");
+          // modeSwitch.classList.contains("active-switch") ? dark() : light();
+        });
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
       }
@@ -339,7 +338,13 @@ window.tweetToTw = () => {
   return window.open("https://twitter.com/intent/tweet", "_blank");
 };
 
-let onreducedVh = window.innerHeight;
-let vhHeightbody = body.clientHeight;
-let x = vhHeightbody - onreducedVh;
-document.body.style.marginBottom = `${x}px`;
+
+setInterval(() => {
+    let screenHeight = window.matchMedia("(max-height:550px)");
+  if (screenHeight.matches) {
+    let onreducedVh = window.innerHeight;
+    let vhHeightbody = body.clientHeight;
+    let x = vhHeightbody - onreducedVh;
+    document.body.style.marginBottom = `${x}px`;
+  }
+},1000);
