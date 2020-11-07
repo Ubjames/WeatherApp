@@ -57,7 +57,6 @@ exitMenu.addEventListener("click", () => {
 
 searchIcon.addEventListener("click", () => {
   let openSearch = search.classList.toggle("active-search");
-
   let screenWidth = window.matchMedia("(max-width:500px)");
   function hideName(screenWidth) {
     if (screenWidth.matches && openSearch) {
@@ -67,6 +66,7 @@ searchIcon.addEventListener("click", () => {
     }
   }
   screenWidth.addListener(hideName);
+  
   hideName(screenWidth);
 });
 search.addEventListener("blur", () => {
@@ -213,9 +213,10 @@ function displayWeather() {
           'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/rainny1.png")';
         body.style.backgroundRepeat = "no-repeat";
         body.style.backgroundSize = "cover";
-      } else if (weather.description == "thunder storm") {
+      } else if (weather.description == "thunderstorm") {
         body.style.background =
           'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/thunder storm.jpg")';
+        // body.style.color = "#fff";
         body.style.backgroundRepeat = "no-repeat";
         body.style.backgroundSize = "cover";
       } else if (weather.description == "clear sky") {
@@ -223,11 +224,15 @@ function displayWeather() {
           'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/clear sky1.jpg")';
         body.style.backgroundRepeat = "no-repeat";
         body.style.backgroundSize = "cover";
+        // body.style.color = "#fff";
+        // menu.style.color = "#000";
       } else {
         body.style.background =
           'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background/images (30).jpeg")';
         body.style.backgroundRepeat = "no-repeat";
         body.style.backgroundSize = "cover";
+        // body.style.color = "#fff";
+        // menu.style.color = "#000";
       }
 
       forecast.style.background = "inherit";
@@ -264,26 +269,27 @@ function displayWeather() {
     }
 
     //BACKGROUND SWITCH
-    setInterval(() => {
+    function activateButton() {
+      modeSwitch.classList.toggle("active-switch");
+      modeSwitch.classList.contains("active-switch") ? dark() : light();
+    }
+    modeSwitch.onclick = null;
+    containerSwitch.classList.add("inactive");
+    modeSwitch.classList.add("inactive");
+
+    bkgdImage.addEventListener("click", () => {
       let thereIsBkgd = bkgdImage.checked;
       if (!thereIsBkgd) {
         clearTimeout(syncBackgrondWithWeatherConditon);
         containerSwitch.classList.remove("inactive");
         modeSwitch.classList.remove("inactive");
-
-        modeSwitch.addEventListener("click", () => {
-          modeSwitch.classList.toggle("active-switch");
-          modeSwitch.classList.contains("active-switch") ? dark() : light();
-        });
-      } else {
-        modeSwitch.removeEventListener("click", () => {
-          modeSwitch.classList.toggle("");
-          // modeSwitch.classList.contains("active-switch") ? dark() : light();
-        });
+        modeSwitch.onclick = activateButton;
+      }else{
+        modeSwitch.onclick = null;
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
       }
-    }, 500);
+    });
   })();
 }
 
@@ -338,13 +344,12 @@ window.tweetToTw = () => {
   return window.open("https://twitter.com/intent/tweet", "_blank");
 };
 
-
 setInterval(() => {
-    let screenHeight = window.matchMedia("(max-height:550px)");
+  let screenHeight = window.matchMedia("(max-height:550px)");
   if (screenHeight.matches) {
     let onreducedVh = window.innerHeight;
     let vhHeightbody = body.clientHeight;
     let x = vhHeightbody - onreducedVh;
     document.body.style.marginBottom = `${x}px`;
   }
-},1000);
+}, 1000);
