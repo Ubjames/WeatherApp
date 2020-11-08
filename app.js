@@ -132,8 +132,7 @@ if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(setPosition, showError);
 } else {
   alertBox.style.visibility = "visible";
-  alertBox.innerHTML =
-    "<p>Browser doesn't Support Geolocation, please upgrade your browser and try again</p>";
+  alertBox.innerHTML = "<p>Browser doesn't Support Geolocation</p>";
 }
 
 // SET USER'S POSITION
@@ -153,7 +152,18 @@ function showError(error) {
     alertBox.innerHTML = `<p> ${noInternet} </p>`;
   } else {
     alertBox.innerHTML = `<p> ${error.message} </p>`;
+
+    let msgPop = setTimeout(() => {
+      document.querySelector(".bgOverlay").style.display = "flex";
+    }, 3000);
+    document
+      .querySelector(".bgOverlay button")
+      .addEventListener("click", () => {
+        clearTimeout(msgPop);
+        document.querySelector(".bgOverlay").style.display = "none";
+      });
   }
+
 }
 
 // GET WEATHER FROM API PROVIDER

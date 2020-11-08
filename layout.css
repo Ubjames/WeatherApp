@@ -5,7 +5,6 @@
 }
 
 #loader {
-  color: red;
   width: 100px;
   height: 100px;
   border-top: 4px solid #ffffff;
@@ -53,8 +52,8 @@ body {
 
 @media all and (max-height: 600px) {
   body {
-    height: 110vh; 
-  } 
+    height: 110vh;
+  }
 }
 .header {
   display: flex;
@@ -521,4 +520,79 @@ input[type="text"].active-search {
 }
 .share-on {
   transform: translateX(-1%);
+}
+
+.bgOverlay {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #eeeeeec0;
+  margin-top: 0;
+}
+.msgBox {
+  font-size: 1.2em;
+  text-align:center;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 350px;
+  height: 150px;
+  box-shadow: 1px 1px 10px #7a7a7a;
+  background: #ffffff;
+  border-radius: 0.7em;
+}
+
+@media screen and (max-width: 400px){
+  .msgBox{
+    font-size:1em;
+    width: 250px;
+  height: 130px;
+  }
+  
+}
+@media screen and (max-width: 300px){
+  .msgBox{
+    font-size:0.9em;
+    width: 200px;
+    height: 100px;
+    padding-top: 0;
+  }
+  
+}
+.msgBox > button {
+  /* position: absolute; */
+  outline: none;
+  border: none;
+  color: #fff;
+  background: rgb(0, 68, 255);
+  width: 80px;
+  height: 30px;
+  border-radius: 0.3em;
+  margin-right: -210px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  text-align: center;
+  font-size: 0.9em;
+}
+@media screen and (max-width:400px){
+  .msgBox > button {
+    /* font-size: 0.5em; */
+    margin-right: -140px;
+
+  }
+}
+@media screen and (max-width:300px){
+  .msgBox > button {
+    margin-right: -10px;
+    margin-top: 3px;
+    width: 60px;
+
+  }
 }
