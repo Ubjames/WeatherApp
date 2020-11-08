@@ -51,11 +51,11 @@ body {
   padding: 0;
 }
 
-/* @media all and (max-width: 400px) {
+@media all and (max-height: 600px) {
   body {
-    height: 110vh;
+    height: 110vh; 
   } 
-}*/
+}
 .header {
   display: flex;
   justify-content: space-between;

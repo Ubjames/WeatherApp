@@ -61,21 +61,23 @@ exitMenu.addEventListener("click", () => {
 });
 
 // SEARCH ICON ACTIVATION
+
 searchIcon.addEventListener("click", () => {
   let openSearch = search.classList.toggle("active-search");
+  let screenWidthForTab = window.matchMedia("(max-width:800px)");
   let screenWidth = window.matchMedia("(max-width:500px)");
-  let screenWidth2 = window.matchMedia("(max-width:600px)");
-
-  // function pushName(screenWidth2) {
-  //   if (screenWidth2.matches && openSearch) {
-  //     document.querySelector("#name").style.marginLeft = "20em";
-  //   }
-  // }
-  // screenWidth.addListener(pushName);
-  // pushName(screenWidth2)
-
-  /////
-  function hideName(screenWidth) {
+  // push the App Name when search is open on tap
+  function pushName() {
+    if (screenWidthForTab.matches) {
+      document.querySelector("#name").style.marginLeft = "-5em";
+    } else {
+      document.querySelector("#name").style.marginLeft = "0";
+    }
+  }
+  screenWidthForTab.addListener(pushName);
+  pushName(screenWidthForTab);
+  // hide the App Name when search is open on mobile
+  function hideName() {
     if (screenWidth.matches && openSearch) {
       document.querySelector("#name").style.visibility = "hidden";
     } else {
@@ -83,13 +85,25 @@ searchIcon.addEventListener("click", () => {
     }
   }
   screenWidth.addListener(hideName);
-  hideName(screenWidth);
+  hideName(screenWidthForTab);
 });
 
 search.addEventListener("blur", () => {
   let closeSearch = search.classList.remove("active-search");
-
   let screenWidth = window.matchMedia("(max-width:500px)");
+  // push the App Name when search is open on tap
+  let screenWidthForTab = window.matchMedia("(max-width:800px)");
+
+  function returnName(screenWidthForTab) {
+    if (screenWidthForTab.matches && closeSearch) {
+      document.querySelector("#name").style.marginLeft = "0";
+    } else {
+      document.querySelector("#name").style.marginLeft = "-5em";
+    }
+  }
+  screenWidthForTab.addListener(returnName);
+  returnName(screenWidthForTab);
+
   function hideName(screenWidth) {
     if (screenWidth.matches && closeSearch) {
       document.querySelector("#name").style.visibility = "hidden";
@@ -259,7 +273,7 @@ function displayWeather() {
       search.style.color = "#fff";
       shareOn.style.background = "#cccccc";
     }
-    let syncBackgrondWithWeatherConditon = setInterval(runBackground, 100);
+    let syncBackgrondWithWeatherConditon = setInterval(runBackground, 200);
 
     function dark() {
       body.style.background = "#000";
@@ -298,13 +312,16 @@ function displayWeather() {
     //CHECKS IF THERE IS BACKGROUND
     bkgdImage.addEventListener("click", () => {
       let thereIsBkgd = bkgdImage.checked;
+      let syncBackgrondWithWeatherConditon2;
+      console.log(syncBackgrondWithWeatherConditon2);
       if (!thereIsBkgd) {
-        clearTimeout(syncBackgrondWithWeatherConditon);
+        clearInterval(syncBackgrondWithWeatherConditon2);
+        clearInterval(syncBackgrondWithWeatherConditon);
         containerSwitch.classList.remove("inactive");
         modeSwitch.classList.remove("inactive");
         modeSwitch.onclick = activateButton;
       } else {
-        setInterval(runBackground, 100);
+        syncBackgrondWithWeatherConditon2 = setInterval(runBackground(), 200);
         modeSwitch.onclick = null;
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
@@ -367,7 +384,7 @@ window.tweetToTw = () => {
   return window.open("https://twitter.com/intent/tweet", "_blank");
 };
 
-// SET THE HEIGHT TO DISPLAY MOBILE WITH LONG SCREEN RESOLUTION
+// SET THE HEIGHT TO DISPLAY ON MOBILE WITH LONG SCREEN RESOLUTION
 setInterval(() => {
   let screenHeight = window.matchMedia("(max-height:550px)");
   if (screenHeight.matches) {
