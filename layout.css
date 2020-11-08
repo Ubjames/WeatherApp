@@ -67,8 +67,6 @@ body {
 }
 .header > span {
   font-size: 2em;
-  /* margin-left: -30em;
-  color: green; */
 }
 
 @media screen and (max-width: 400px) {

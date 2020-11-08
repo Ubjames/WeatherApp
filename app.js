@@ -1,4 +1,6 @@
-import { apiKey as weather_provider } from "./dateTime.js";
+import { apiKey as weather_provider } from "./dateTime.js"; // open weather map API key from an external script.
+
+//DOM Elements
 const menu = document.querySelector("nav");
 const menuIcon = document.querySelector(".fa-bars");
 const exitMenu = document.querySelector(".fa-angle-left");
@@ -20,6 +22,7 @@ const icon = document.querySelector("#icon");
 const shareOn = document.querySelector(".floatBtn");
 const share = document.querySelector(".dev-gp-2");
 
+// Activate Share to Facebook or Twitter Button;
 let timeout;
 share.addEventListener("mouseover", (e) => {
   shareOn.classList.add("share-on");
@@ -43,6 +46,8 @@ shareOn.addEventListener("mouseleave", () => {
     shareOn.style.display = "none";
   }, 400);
 });
+
+// SIDE MENU ACTIVATION
 menuIcon.addEventListener("click", () => {
   menu.classList.add("active-nav");
 });
@@ -55,9 +60,21 @@ exitMenu.addEventListener("click", () => {
   }
 });
 
+// SEARCH ICON ACTIVATION
 searchIcon.addEventListener("click", () => {
   let openSearch = search.classList.toggle("active-search");
   let screenWidth = window.matchMedia("(max-width:500px)");
+  let screenWidth2 = window.matchMedia("(max-width:600px)");
+
+  // function pushName(screenWidth2) {
+  //   if (screenWidth2.matches && openSearch) {
+  //     document.querySelector("#name").style.marginLeft = "20em";
+  //   }
+  // }
+  // screenWidth.addListener(pushName);
+  // pushName(screenWidth2)
+
+  /////
   function hideName(screenWidth) {
     if (screenWidth.matches && openSearch) {
       document.querySelector("#name").style.visibility = "hidden";
@@ -66,9 +83,9 @@ searchIcon.addEventListener("click", () => {
     }
   }
   screenWidth.addListener(hideName);
-  
   hideName(screenWidth);
 });
+
 search.addEventListener("blur", () => {
   let closeSearch = search.classList.remove("active-search");
 
@@ -84,21 +101,19 @@ search.addEventListener("blur", () => {
   hideName(screenWidth);
 });
 
-// onBackground();
-// containerSwitch.classList.add("inactive");
-// modeSwitch.classList.add("inactive");
-
-// Data fetching
+// WEATHER DATA STRUCTURING
 const weather = {};
-
 weather.temperature = {
   unit: "celsius",
 };
 
+//FORMULA FOR KELVIN
 const KELVIN = 273;
+
 let tempMax;
 let tempMin;
 
+//GET CURRENT WEATHER CONDTION DEPENDING ON THE BROWSER'S LOCATION
 if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(setPosition, showError);
 } else {
@@ -143,7 +158,7 @@ function getWeather(latitude, longitude) {
       displayWeather();
     });
 }
-
+// CONFIGURING THE DATA (response) GOTTEN FROM THE SERVER
 function configData(data) {
   weather.temperature.value = Math.floor(data.main.temp - KELVIN);
   tempMax = Math.floor(data.main.temp_max - KELVIN);
@@ -159,6 +174,7 @@ function configData(data) {
   weather.humidity = data.main.humidity;
 }
 
+// AFTER CONFIGURATION, DISPLAY THE DATA WITH THE RIGHT DOM ELEMENT
 function displayWeather() {
   let fahUnit = document.querySelector("#fahrinheit");
   setInterval(() => {
@@ -189,9 +205,9 @@ function displayWeather() {
     document.querySelector("#sea-level").innerHTML = `${weather.seaLevel}`;
   }
 
-  //background Settings [onBckground]
+  //background Settings [onBackground]
   (() => {
-    let syncBackgrondWithWeatherConditon = setInterval(() => {
+    function runBackground() {
       if (
         weather.description == "few clouds" ||
         weather.description == "scattered clouds" ||
@@ -242,7 +258,8 @@ function displayWeather() {
       search.style.borderBottom = "1px solid #fff";
       search.style.color = "#fff";
       shareOn.style.background = "#cccccc";
-    });
+    }
+    let syncBackgrondWithWeatherConditon = setInterval(runBackground, 100);
 
     function dark() {
       body.style.background = "#000";
@@ -273,10 +290,12 @@ function displayWeather() {
       modeSwitch.classList.toggle("active-switch");
       modeSwitch.classList.contains("active-switch") ? dark() : light();
     }
+    // DARKMODE NOT WORKING BY DEFAULT
     modeSwitch.onclick = null;
     containerSwitch.classList.add("inactive");
     modeSwitch.classList.add("inactive");
 
+    //CHECKS IF THERE IS BACKGROUND
     bkgdImage.addEventListener("click", () => {
       let thereIsBkgd = bkgdImage.checked;
       if (!thereIsBkgd) {
@@ -284,7 +303,8 @@ function displayWeather() {
         containerSwitch.classList.remove("inactive");
         modeSwitch.classList.remove("inactive");
         modeSwitch.onclick = activateButton;
-      }else{
+      } else {
+        setInterval(runBackground, 100);
         modeSwitch.onclick = null;
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
@@ -310,7 +330,6 @@ form.addEventListener("submit", (e) => {
       return res.json();
     })
     .then((data) => {
-      // errors = "";
       configData(data);
     })
     .then(() => {
@@ -323,6 +342,7 @@ form.addEventListener("submit", (e) => {
     });
 });
 
+// REMOVES THE SIDE-MENU WHEN MOUSE IS CLICKED OUTSIDE
 document.addEventListener("click", (e) => {
   let scrnWidth = e.clientX;
   if (scrnWidth > 252 && menu.classList.contains("active-nav")) {
@@ -334,16 +354,20 @@ document.addEventListener("click", (e) => {
   }
 });
 
+//ACTIVATING SHARING TO FACEBOOK
 window.shareToFb = () => {
   return window.open(
     "https://www.facebook.com/sharer/sharer.php?u=https://ubtechweather.netlify.app/index.html",
     "_blank"
   );
 };
+
+//ACTIVATING TWITING ON TWEETER
 window.tweetToTw = () => {
   return window.open("https://twitter.com/intent/tweet", "_blank");
 };
 
+// SET THE HEIGHT TO DISPLAY MOBILE WITH LONG SCREEN RESOLUTION
 setInterval(() => {
   let screenHeight = window.matchMedia("(max-height:550px)");
   if (screenHeight.matches) {
