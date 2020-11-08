@@ -326,6 +326,11 @@ function displayWeather() {
         containerSwitch.classList.add("inactive");
         modeSwitch.classList.add("inactive");
       }
+
+      if (thereIsBkgd && modeSwitch.classList.contains("active-switch")) {
+        console.log("yes");
+        menu.style.color = "#fff";
+      }
     });
   })();
 }
