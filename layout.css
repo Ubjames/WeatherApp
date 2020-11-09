@@ -408,6 +408,7 @@ a {
   border-radius: 1em;
   background: #000;
   margin-right: 4px;
+  margin-bottom: -1px;
 }
 .switch {
   height: 22px;

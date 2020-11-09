@@ -33,6 +33,18 @@ share.addEventListener("mouseover", (e) => {
     }, 100);
   }
 });
+share.addEventListener("click", (e) => {
+  shareOn.style.zIndex = -1;
+  clearTimeout(timeout);
+
+  setTimeout(() => {
+    shareOn.classList.remove("share-on");
+  }, 80);
+
+  setTimeout(() => {
+    shareOn.style.display = "none";
+  }, 400);
+});
 
 shareOn.addEventListener("mouseleave", () => {
   shareOn.style.zIndex = -1;
@@ -45,6 +57,10 @@ shareOn.addEventListener("mouseleave", () => {
   setTimeout(() => {
     shareOn.style.display = "none";
   }, 400);
+});
+//RATE BUTTON
+document.querySelector(".dev-gp-1").addEventListener("click", () => {
+  document.querySelector(".fa-star").style.color = "yellow";
 });
 
 // SIDE MENU ACTIVATION
@@ -64,11 +80,22 @@ exitMenu.addEventListener("click", () => {
 
 searchIcon.addEventListener("click", () => {
   let openSearch = search.classList.toggle("active-search");
-  let screenWidthForTab = window.matchMedia("(max-width:800px)");
   let screenWidth = window.matchMedia("(max-width:500px)");
+  let reduceNameOnscreenWidth = window.matchMedia("(max-width:600px)");
+  reduceNameOnscreenWidth.addListener((reduceNameOnscreenWidth) => {
+    if (reduceNameOnscreenWidth.matches && openSearch) {
+      document.querySelector("#name").style.fontSize = "1.5em";
+      document.querySelector("#name").style.marginLeft = "-7em";
+    } else {
+      document.querySelector("#name").style.fontSize = "2em";
+      document.querySelector("#name").style.marginLeft = "0";
+    }
+  });
+
+  let screenWidthForTab = window.matchMedia("(max-width:800px)");
   // push the App Name when search is open on tap
-  function pushName() {
-    if (screenWidthForTab.matches) {
+  function pushName(screenWidthForTab) {
+    if (screenWidthForTab.matches && openSearch === true) {
       document.querySelector("#name").style.marginLeft = "-5em";
     } else {
       document.querySelector("#name").style.marginLeft = "0";
@@ -77,7 +104,7 @@ searchIcon.addEventListener("click", () => {
   screenWidthForTab.addListener(pushName);
   pushName(screenWidthForTab);
   // hide the App Name when search is open on mobile
-  function hideName() {
+  function hideName(screenWidth) {
     if (screenWidth.matches && openSearch) {
       document.querySelector("#name").style.visibility = "hidden";
     } else {
@@ -85,15 +112,15 @@ searchIcon.addEventListener("click", () => {
     }
   }
   screenWidth.addListener(hideName);
-  hideName(screenWidthForTab);
+  hideName(screenWidth);
 });
 
 search.addEventListener("blur", () => {
   let closeSearch = search.classList.remove("active-search");
   let screenWidth = window.matchMedia("(max-width:500px)");
-  // push the App Name when search is open on tap
   let screenWidthForTab = window.matchMedia("(max-width:800px)");
 
+  //reposition back the App Name when search is NOT open on tap
   function returnName(screenWidthForTab) {
     if (screenWidthForTab.matches && closeSearch) {
       document.querySelector("#name").style.marginLeft = "0";
@@ -104,15 +131,15 @@ search.addEventListener("blur", () => {
   screenWidthForTab.addListener(returnName);
   returnName(screenWidthForTab);
 
-  function hideName(screenWidth) {
+  function showName(screenWidth) {
     if (screenWidth.matches && closeSearch) {
-      document.querySelector("#name").style.visibility = "hidden";
-    } else {
       document.querySelector("#name").style.visibility = "visible";
+    } else {
+      document.querySelector("#name").style.visibility = "hidden";
     }
   }
-  screenWidth.addListener(hideName);
-  hideName(screenWidth);
+  screenWidth.addListener(showName);
+  showName(screenWidth);
 });
 
 // WEATHER DATA STRUCTURING
@@ -163,7 +190,6 @@ function showError(error) {
         document.querySelector(".bgOverlay").style.display = "none";
       });
   }
-
 }
 
 // GET WEATHER FROM API PROVIDER
@@ -204,18 +230,21 @@ function displayWeather() {
   setInterval(() => {
     if (fahUnit.checked) {
       let toFahrinheit = Math.floor((9 / 5) * weather.temperature.value + 35);
+      let MaxToFahrinheit = Math.floor((9 / 5) * tempMax + 35);
+      let MinToFahrinheit = Math.floor((9 / 5) * tempMin + 35);
       temperature.innerHTML = `${toFahrinheit}<span id="deg">°</span><span class="SmallC">F</span>`;
+      maxTemp.innerHTML = `${MaxToFahrinheit}°<span>F</span>`;
+      minTemp.innerHTML = `${MinToFahrinheit}°<span>F</span>`;
     } else {
+      maxTemp.innerHTML = `${tempMax}°<span>C</span>`;
+      minTemp.innerHTML = `${tempMin}°<span>C</span>`;
       temperature.innerHTML = `${weather.temperature.value}<span id="deg">°</span><span class="SmallC">C</span>`;
     }
-  }, 100);
+  }, 200);
 
   icon.innerHTML = `<img src="SVGs/${weather.iconId}.svg" />`;
   tempDescription.innerHTML = weather.description;
   currentLocation.innerHTML = `${weather.city}, ${weather.country}`;
-  maxTemp.innerHTML = `${tempMax}°<span>C</span>`;
-  minTemp.innerHTML = `${tempMin}°<span>C</span>`;
-  //
 
   document.querySelector("#wind").innerHTML = `${weather.wind} mph`;
   document.querySelector("#feels-like").innerHTML = ` ${weather.feelsLike}°`;
@@ -323,7 +352,6 @@ function displayWeather() {
     bkgdImage.addEventListener("click", () => {
       let thereIsBkgd = bkgdImage.checked;
       let syncBackgrondWithWeatherConditon2;
-      console.log(syncBackgrondWithWeatherConditon2);
       if (!thereIsBkgd) {
         clearInterval(syncBackgrondWithWeatherConditon2);
         clearInterval(syncBackgrondWithWeatherConditon);
@@ -338,7 +366,6 @@ function displayWeather() {
       }
 
       if (thereIsBkgd && modeSwitch.classList.contains("active-switch")) {
-        console.log("yes");
         menu.style.color = "#fff";
       }
     });
